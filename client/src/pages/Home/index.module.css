@@ -1,0 +1,74 @@
+.Banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 2rem 4rem;
+  padding-bottom: 4rem;
+  height: 100%;
+  background-color: var(--bg-color);
+}
+
+.booksList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 4rem;
+  height: 100%;
+  background-color: var(--bg-white);
+}
+.awards {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2rem 4rem;
+  height: 100%;
+  background-color: var(--bg-color);
+}
+
+.otherBooks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 3rem;
+  height: 100%;
+  background-color: var(--bg-white);
+}
+
+.customerReview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 2rem 3rem;
+  height: 100%;
+  background-color: var(--bg-white);
+}
+@media screen and (max-width: 800px) {
+  .Banner {
+    flex-direction: column;
+    gap: 1rem;
+    flex-direction: column-reverse;
+    padding: 2rem 1rem;
+  }
+  .booksList {
+    padding: 4rem 1rem;
+  }
+  .awards {
+    padding: 2rem 1rem;
+  }
+
+  .otherBooks {
+    padding: 1.5rem 1rem;
+  }
+
+  .customerReview {
+    padding: 1rem 0.5rem;
+    margin: 0;
+  }
+}

@@ -20,6 +20,17 @@ export default {
       "8xl": ["96px", "106px"],
     },
     extend: {
+      keyframes: {
+        showSlide: {
+          "0%": { transform: "translateX(100%)" },
+          "40%": { transform: "translateX(-10%)" },
+          "80%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-10px)" },
+        },
+      },
+      animation: {
+        showSlide: "show_slide 1s ease forwards",
+      },
       fontFamily: {
         palanquin: ["Palanquin", "sans-serif"],
         montserrat: ["Montserrat", "sans-serif"],

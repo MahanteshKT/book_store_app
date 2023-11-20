@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Root";
 import classes from "./index.module.css";
 import BannerSection from "./BannerSection/Banner";
@@ -7,9 +7,32 @@ import AwardSection from "./AwardSection/AwardSection";
 import OtherBookSection from "./OtherBooksSection/OtherBookSection";
 import CustomerReviewSection from "./CusromerReviewSection/CustomerReviewSection";
 import { bannerBooks, reviews } from "../../constants";
+import { GetAllBooks } from "../../services/fetch-apis";
+import { useDispatch, useSelector } from "react-redux";
+import { booksAction } from "../../store/books-slice/book-slice";
+import { uiAction } from "../../store/ui-slice/ui-slice";
 
 function Home() {
-  const [state, setState] = useState();
+  const { user, token } = useSelector((state) => state.user);
+  // const [state, setState] = useState();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(uiAction.loadingHandler(true));
+    GetAllBooks(token)
+      .then((data) => {
+        dispatch(booksAction.setbooks({ books: [...data.books] }));
+      })
+      .catch((err) => {
+        booksAction.addMessage({
+          status: err.status || 400,
+          title: "error",
+          message: err.message,
+        });
+      })
+      .finally(() => {
+        dispatch(uiAction.loadingHandler(false));
+      });
+  }, []);
   return (
     <Layout>
       <div className={classes.Banner}>

@@ -53,7 +53,7 @@ const UserSchema = new mongoose.Schema(
 );
 
 UserSchema.statics.signup = async function (data) {
-  const { firstName, lastName, email, password, ...others } = data;
+  const { firstName, lastName, email, password, age, ...others } = data;
   const exists = await this.findOne({ email });
   if (exists) {
     throw new Error("Email already in use");
@@ -74,6 +74,7 @@ UserSchema.statics.signup = async function (data) {
     firstName,
     lastName,
     email,
+    age: +age,
     password: hash,
     ...others,
   });

@@ -10,9 +10,9 @@ export const Register = async (req, res) => {
   console.log(data);
   try {
     const user = await User.signup(data);
-    res.status(200).json({ ...user });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(200).json({ user });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
 };
 

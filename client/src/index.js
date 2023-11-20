@@ -1,13 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { useEffect } from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider, useDispatch } from "react-redux";
+import store from "./store";
+import { getfromLocalStorage } from "./services/localStorage";
+import { cartAction } from "./store/cart-slice/cart-slice";
+import { userAction } from "./store/user-slice/user-slice";
+const root = ReactDOM.createRoot(document.getElementById("root"));
+const SetData = () => {
+  const dispatch = useDispatch();
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+  useEffect(() => {
+    const user = getfromLocalStorage("user-slice");
+    const cart = getfromLocalStorage("cart-slice");
+    const addToStore = () => {
+      console.log(user);
+      dispatch(cartAction.CartReplaceHandler({ ...cart }));
+      dispatch(userAction.setLogin({ ...user }));
+    };
+    {
+      Object.keys(cart).length !== 0 &&
+        Object.keys(cart).length !== 0 &&
+        addToStore();
+    }
+  }, []);
+
+  return;
+};
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 

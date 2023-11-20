@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import DashboardLayout from "../../DashBoardLayout";
 import { Label, TextInput, Select, Textarea } from "flowbite-react";
 import Button from "../../../../components/UI/Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { uploadBookApi } from "../../../../services/fetch-apis";
+import { uiAction } from "../../../../store/ui-slice/ui-slice";
 function UploadBooks() {
+  const { user, token } = useSelector((state) => state.user);
+  const { loading } = useSelector((state) => state.ui);
+  const dispatch = useDispatch();
   const bookCategories = [
     "Fiction",
     "Non-Fiction",
@@ -34,8 +40,49 @@ function UploadBooks() {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const form = e.target;
-    console.log(form.bookTitle.value);
-    console.log(form);
+    const bookTitle = form.bookTitle.value;
+    const authorName = form.authorName.value;
+    const imageUrl = form.imageUrl.value;
+    const category = form.categoryName.value;
+    const bookDescription = form.bookDescription.value;
+    const bookPdfURL = form.bookPdfURL.value;
+    const price = form.price.value;
+    const bookObj = {
+      bookTitle,
+      authorName,
+      imageUrl,
+      category,
+      bookDescription,
+      bookPdfURL,
+      price,
+      userId: user._id,
+    };
+    console.log(bookObj);
+    console.log(user, loading);
+    dispatch(uiAction.loadingHandler(true));
+    console.log(loading);
+    uploadBookApi(bookObj, token)
+      .then(() => {
+        dispatch(
+          uiAction.addMessage({
+            title: "success",
+            status: 200,
+            message: "Book Uploaded successfully!",
+          })
+        );
+      })
+      .catch((err) => {
+        dispatch(
+          uiAction.addMessage({
+            title: "error",
+            status: err.status || 400,
+            message: err.message,
+          })
+        );
+      })
+      .finally(() => {
+        dispatch(uiAction.loadingHandler(false));
+      });
   };
 
   return (
@@ -67,7 +114,7 @@ function UploadBooks() {
               <TextInput
                 id="authorName"
                 type="text"
-                name="autorName"
+                name="authorName"
                 placeholder="author Name"
                 required
               />
@@ -117,6 +164,18 @@ function UploadBooks() {
               required
               className="w-full"
               rows={6}
+            />
+          </div>
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="price" value="Book Price:" />
+            </div>
+            <TextInput
+              id="price"
+              type="text"
+              name="price"
+              placeholder="Book Price"
+              required
             />
           </div>
           <div>

@@ -3,7 +3,7 @@ import classes from "./Button.module.css";
 function Button(props) {
   return (
     <button
-      className={`${classes.button} ${props.className ? props.className : ""}`}
+      className={`${props?.className && `${props.className}`}`}
       onClick={props.onClick && props.onClick}
     >
       {props.children}

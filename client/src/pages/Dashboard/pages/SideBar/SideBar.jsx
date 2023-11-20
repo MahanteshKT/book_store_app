@@ -11,19 +11,36 @@ import {
   HiUser,
   HiViewBoards,
 } from "react-icons/hi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { baseURL } from "../../../../services/fetch-apis";
+import { userAction } from "../../../../store/user-slice/user-slice";
+import { deletLocalStorage } from "../../../../services/localStorage";
 
 function SideBar() {
+  const { user, token } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const LogoutHandler = (e) => {
+    e.preventDefault();
+    console.log("logout");
+    dispatch(userAction.setLogout());
+    deletLocalStorage();
+    navigate("/login");
+  };
+
   return (
     <Sidebar aria-label="Sidebar with content separator example">
       <Sidebar.Items>
         <div className=" flex flex-row gap-3  items-center justify-center">
           <img
-            src=""
+            src={`${baseURL}/assets/${user?.picturePath}`}
             alt="gfddgdf"
-            className=" bg-slate-800 w-[2rem] h-[2rem] rounded-md object-cover"
+            className=" bg-slate-800 w-[3rem] h-[3rem] rounded-md object-cover"
           />
-          <h2>Mahantesh K T</h2>
+          <h2>
+            {user?.firstName} {user?.lastName}
+          </h2>
         </div>
 
         <Sidebar.ItemGroup>
@@ -42,12 +59,22 @@ function SideBar() {
           <Sidebar.Item icon={HiShoppingBag}>
             <NavLink to="/admin">Products</NavLink>
           </Sidebar.Item>
-          <Sidebar.Item icon={HiArrowSmRight}>
-            <NavLink to="/admin/sign-in">Sign In</NavLink>
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiTable}>
-            <NavLink to="/admin/log-out">Log out</NavLink>
-          </Sidebar.Item>
+          {!token && (
+            <Sidebar.Item icon={HiArrowSmRight}>
+              <NavLink to="/login">Sign In</NavLink>
+            </Sidebar.Item>
+          )}
+          {token && (
+            <>
+              <Sidebar.Item icon={HiTable}>
+                <NavLink to="/">To Main Page</NavLink>
+              </Sidebar.Item>
+
+              <Sidebar.Item href="#" onClick={LogoutHandler} icon={HiTable}>
+                Log out
+              </Sidebar.Item>
+            </>
+          )}
         </Sidebar.ItemGroup>
         <Sidebar.ItemGroup>
           <Sidebar.Item href="#" icon={HiChartPie}>

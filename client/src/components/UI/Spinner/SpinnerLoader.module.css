@@ -1,0 +1,132 @@
+.backdrop {
+  position: absolute;
+  z-index: 45;
+  width: 100%;
+  min-height: 100%;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.51),
+    rgba(255, 255, 255, 0.4)
+  );
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading .before {
+  width: 50px;
+  height: 5px;
+  /* transform: translateY(0px); */
+  margin: 2px 5px;
+  transform: translateX(120px);
+  display: flex;
+  background: linear-gradient(to right, #ff00ff, rgb(0, 255, 136));
+  animation: loadingg infinite ease-in-out 1s alternate;
+}
+.load-single {
+  width: 50px;
+  height: 5px;
+  margin: 4px 5px;
+  display: flex;
+  transform: translateX(-120px);
+  background: linear-gradient(to right, rgba(0, 255, 195, 1), rgb(0, 89, 255));
+  animation: loading infinite ease-in-out 1s alternate;
+}
+
+.loading .load-text {
+  display: flex;
+  font-size: 25px;
+  padding-top: 20px;
+  margin: 10px 20px;
+  color: rgb(0, 21, 255);
+  font-weight: 800;
+}
+
+.load-text div {
+  margin-right: 20px;
+}
+
+.load-text p {
+  padding: 0px 10px;
+  animation: loadtext infinite linear 1s alternate;
+}
+
+.load-text p:nth-child(1) {
+  animation-delay: 1s;
+}
+.load-text p:nth-child(2) {
+  animation-delay: 2s;
+}
+.load-text p:nth-child(3) {
+  animation-delay: 3s;
+}
+
+@keyframes loadtext {
+  0% {
+    transform: scale(1, 1) translateY(0px);
+  }
+  100% {
+    transform: scale(3, 3) translateY(-5px);
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-120px);
+    width: 0px;
+  }
+  50% {
+    /* transform: translateX(120px); */
+    width: 50px;
+  }
+  100% {
+    transform: translateX(120px);
+    width: 0px;
+  }
+}
+
+@keyframes loadingg {
+  0% {
+    transform: translateX(120px);
+    width: 0px;
+  }
+  50% {
+    /* transform: translateX(120px); */
+    width: 50px;
+  }
+  100% {
+    transform: translateX(-120px);
+    width: 0px;
+  }
+}
+
+@media (min-width: 768px) {
+  .modal {
+    width: 40rem;
+    left: calc(50% - 20rem);
+    top: 20vh;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

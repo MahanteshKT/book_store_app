@@ -62,7 +62,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 //routes with files
-app.post("/auth/register", upload.single("picture"), Register);
+app.post("/auth/register", upload.single("picturePath"), Register);
 // app.routes("/book/post",Ver)
 
 /* Routes */

@@ -3,19 +3,13 @@ import Button from "../../components/UI/Button/Button";
 import { FaCaretLeft, FaShoppingBag, FaShoppingCart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { cartAction } from "../../store/cart-slice/cart-slice";
-
-const initialState = {
-  TotalAmount: 0,
-  items: [],
-  totalQuantity: 0,
-  changed: false,
-  action: "",
-};
+import { useNavigate } from "react-router-dom";
 
 function ProductItem(props) {
   const { book } = props;
   const { items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onAddCartHandler = (e) => {
     e.preventDefault();
     console.log(items);
@@ -27,16 +21,27 @@ function ProductItem(props) {
       })
     );
   };
+
+  const onClickHandler = (e, id) => {
+    e.preventDefault();
+    console.log(id);
+    navigate(`/product/${id}`);
+  };
+
   return (
     <div className="flex gap-3 flex-col p-4  shadow-md w-[80%] lg:h-[40rem] sm:w-[40%] md:w-[20rem] lg:w-[20rem]  bg-white-400 rounded-md">
       <div className="cursor-pointer w-[100%] h-[50%] lg:h-[50rem]  rounded-md overflow-hidden shadow-sm  border-2 border-solid">
         <img
+          onClick={(e) => onClickHandler(e, book._id)}
           className="hover:scale-[1.5] hover:transition duration-500 ease-out w-full h-full object-cover"
           src={`${book?.imageUrl}`}
           alt={book?.bookTitle}
         />
       </div>
-      <h2 className=" capitalize cursor-pointer font-bold text-xl hover:text-orange-500 ">
+      <h2
+        onClick={(e) => onClickHandler(e, book._id)}
+        className=" capitalize cursor-pointer font-bold text-xl hover:text-orange-500 "
+      >
         {book.bookTitle}
       </h2>
       <p className=" break-words text-sm text-gray-400">

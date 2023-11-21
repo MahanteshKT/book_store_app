@@ -20,6 +20,7 @@ import SpinnerLoader from "./components/UI/Spinner/SpinnerLoader.jsx";
 import Message from "./components/UI/Messages/Message.jsx";
 import Shop from "./pages/Shop/Shop.jsx";
 import { cartAction } from "./store/cart-slice/cart-slice.js";
+import ProductDetails from "./pages/ProductPage/ProductDetails.jsx";
 
 function App() {
   const { user, token } = useSelector((state) => state.user);
@@ -45,7 +46,10 @@ function App() {
           <Route path="/register" element={!token ? <Register /> : <Home />} />
           <Route path="/about" element={token ? <Home /> : <Login />} />
           <Route path="/shop" element={token ? <Shop /> : <Login />} />
-          {/* <Route path="/admin/upload-book" element={<Dashboard />} /> */}
+          <Route
+            path="/product/:id"
+            element={token ? <ProductDetails /> : <Login />}
+          />
 
           <Route path="/blog" element={Login ? <Home /> : <Login />} />
         </Routes>

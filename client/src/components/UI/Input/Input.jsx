@@ -14,7 +14,7 @@ function Input(props) {
         className=" outline-none hover:bg-gray-200 rounded-sm hover:border-blue-600 text-black"
         {...(props.attributes && props.attributes)}
       />
-      {props.errors.required ? (
+      {props?.errors?.required ? (
         <span className="text-danger text-red-500">
           {" "}
           {props.label} is required.{" "}

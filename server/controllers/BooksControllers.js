@@ -52,6 +52,19 @@ export const getBooksByUserId = async function (req, res) {
   }
 };
 
+export const getBookByBookId = async function (req, res) {
+  const { id: _id } = req.params;
+  try {
+    const book = await Books.find({ _id });
+    if (!book) {
+      throw new Error("failed to get requested Book.");
+    }
+    res.status(200).json({ book });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export const updateBookByUserId = async function (req, res) {
   console.log("sudyfhs");
   const { userId, bookId: _id } = req.params;

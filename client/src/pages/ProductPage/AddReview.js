@@ -1,17 +1,32 @@
 import { useContext, useState } from "react";
 
-import { FaStar } from "react-icons/fa";
+import { FaCheckSquare, FaSquare, FaSquareFull, FaStar } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { uiAction } from "../../store/ui-slice/ui-slice";
+import { AddReviewApi } from "../../services/fetch-apis";
+import Button from "../../components/UI/Button/Button";
+import { reviewAction } from "../../store/review-slice/review-slice";
 
 const colors = {
   orange: "#FFBA5A",
   grey: "#a9a9a9",
 };
 
+// Rating
+// commentDescription
+// user_id
+// userName
+// bookTitle
+// book_id
+
 function AddReview(props) {
+  const [isRecommend, setisRecommend] = useState(false);
+  const { user, token } = useSelector((state) => state.user);
   const [text, setText] = useState();
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   const stars = Array(5).fill(0);
+  const dispatch = useDispatch();
 
   const handleClick = (value) => {
     setCurrentValue(value);
@@ -28,48 +43,46 @@ function AddReview(props) {
     e.preventDefault();
     console.log("adas", text, currentValue);
     const data = {
-      //   author_id: ctx.user._id,
-      //   author: ctx.user.fullName,
-      rating: currentValue,
-      text: text,
-      brewery: props.brewery,
+      Rating: currentValue,
+      commentDescription: text,
+      user_id: user._id,
+      userName: `${user.firstName} ${user.lastName}`,
+      bookTitle: props.bookTitle,
+      book_id: props.id,
+      recommend: isRecommend,
     };
     console.log(data);
-    // sendReview(data)
-    //   .then((resData) => {
-    //     ctx.setReviews(resData);
-    //     ctx.setMessage({
-    //       heading: "success",
-    //       msg: `You given ${data.rating} rating. `,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //     ctx.setMessage({ heading: "error", msg: err.message });
-    //   });
-  };
+    dispatch(uiAction.loadingHandler(true));
 
-  //   const sendReview = async (data) => {
-  //     const res = await fetch(BaseUrl + "review", {
-  //       method: "POST",
-  //       body: JSON.stringify(data),
-  //       headers: {
-  //         "Content-type": "Application/json",
-  //       },
-  //     });
-  //     const Resdata = await res.json();
-  //     if (!res.ok) {
-  //       console.log(Resdata);
-  //       throw new Error(Resdata.error);
-  //     }
-  //     if (Resdata) {
-  //       return Resdata;
-  //     }
-  //   };
+    AddReviewApi(token, props.id, data)
+      .then((data) => {
+        console.log(data.comment, "addreview api call");
+        dispatch(reviewAction.AddRecentReview({ review: { ...data.comment } }));
+        dispatch(
+          uiAction.addMessage({
+            title: "success",
+            status: 200,
+            message: "Thanks for Review",
+          })
+        );
+      })
+      .catch((err) => {
+        dispatch(
+          uiAction.addMessage({
+            title: "error",
+            status: err.status || 400,
+            message: err.message,
+          })
+        );
+      })
+      .finally(() => {
+        dispatch(uiAction.loadingHandler(false));
+      });
+  };
 
   return (
     <div style={styles.container}>
-      <h2> Brewery Ratings </h2>
+      <h2> Add Book Rating </h2>
       <div style={styles.stars}>
         {stars.map((_, index) => {
           return (
@@ -101,6 +114,26 @@ function AddReview(props) {
           setText(e.target.value);
         }}
       />
+      <Button
+        onClick={(e) => {
+          e.preventDefault();
+          setisRecommend(!isRecommend);
+        }}
+        className={`w-[95%] md:w-1/2 mb-4 bg-orange-200 ${
+          isRecommend
+            ? "hover:bg-green-400"
+            : "hover:bg-orange-200 hover:text-black"
+        } `}
+      >
+        {!isRecommend ? (
+          `Recommend`
+        ) : (
+          <span className="text-center flex flex-row justify-center items-center gap-4">
+            <FaCheckSquare className="bg-green-400 text-2xl round-lg" />{" "}
+            Recommended
+          </span>
+        )}
+      </Button>
 
       <button onClick={onSubmitHandler} style={styles.button}>
         Submit

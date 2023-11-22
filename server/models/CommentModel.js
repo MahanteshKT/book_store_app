@@ -36,6 +36,14 @@ const CommentSchema = new mongoose.Schema(
       min: 2,
       max: 100,
     },
+    images: {
+      type: Array,
+      default: [],
+    },
+    recommend: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

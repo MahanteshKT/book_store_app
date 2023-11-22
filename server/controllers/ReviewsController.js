@@ -24,7 +24,7 @@ export const getReviews = async function (req, res) {
     if (!exists) {
       throw new Error("books not found");
     }
-    const reviews = await Comment.find({ book_id: _id });
+    const reviews = await Comment.find({ book_id: _id }).sort({ _id: -1 });
     res.status(200).json({ reviews });
   } catch (err) {
     res.status(500).json({ error: err.message });

@@ -90,7 +90,7 @@ function ProductReviewSection(props) {
             >
               <span className=" justify-center flex items-center bg-white rounded-full w-[4rem] h-[4rem]">
                 <span className="font-bold text-lg">
-                  {recomended.percentage ?? 0}%
+                  {recomended.percentage ? recomended.percentage : 0}%
                 </span>
               </span>
             </div>

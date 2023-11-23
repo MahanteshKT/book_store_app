@@ -17,7 +17,7 @@ function ReviewsList() {
           reviews.map((each) => (
             <div
               key={each._id}
-              className="border-[1px] border-solid border-gray-400 rounded-md shadow-sm w-full p-4 flex flex-col gap-3"
+              className="border-[1px] border-solid border-gray-400 bg-slate-50 rounded-md shadow-sm w-full p-4 flex flex-col gap-3"
             >
               <h2 className="font-bold text-md">{each.userName}</h2>
               <p className="flex flex-row text-black gap-1 items-center">

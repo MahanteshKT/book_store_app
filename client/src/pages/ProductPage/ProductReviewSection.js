@@ -57,7 +57,7 @@ function ProductReviewSection(props) {
                           {"  "}
                         </div>
                       </div>
-                      <p>{each.percentage}%</p>
+                      <p>{each.percentage ? each.percentage : 0}%</p>
                     </div>
                   )}
                 </React.Fragment>
@@ -90,12 +90,12 @@ function ProductReviewSection(props) {
             >
               <span className=" justify-center flex items-center bg-white rounded-full w-[4rem] h-[4rem]">
                 <span className="font-bold text-lg">
-                  {recomended.percentage}%
+                  {recomended.percentage ?? 0}%
                 </span>
               </span>
             </div>
             <h2 className="font-bold text-lg">
-              {recomended.percentage}% would recommend
+              {recomended.percentage ?? 0}% would recommend
             </h2>
             <p>{recomended.totalRecomend} Recommendations</p>
           </div>

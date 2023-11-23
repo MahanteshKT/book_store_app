@@ -15,7 +15,7 @@ function ProductImageSection(props) {
         <ul className=" flex flex-row gap-3">
           {arr.map((each, index) => (
             <li
-              className=" w-[5rem] h-[5rem] border-[0.1rem] overflow-hidden hover:border-[0.2rem] hover:border-orange-500 border-solid border-gray-600 gap-2"
+              className="w-[4.5rem] md:w-[5rem] h-[5rem] border-[0.1rem] overflow-hidden hover:border-[0.2rem] hover:border-orange-500 border-solid border-gray-600 gap-2"
               key={index}
             >
               <img

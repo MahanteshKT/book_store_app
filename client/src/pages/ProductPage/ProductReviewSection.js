@@ -33,6 +33,7 @@ function ProductReviewSection(props) {
     });
     setRatingEach([...rating]);
   }, [ratingList]);
+  console.log(recom.percentage);
   return (
     <div className=" w-full bg-slate-100 gap-5 flex flex-col justify-center items-center">
       <h2 className=" font-bold text-2xl">Customer Rating & Reviews</h2>

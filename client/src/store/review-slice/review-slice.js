@@ -104,6 +104,8 @@ const reviewSlice = createSlice({
 
       console.log(state.ratingList[2]);
       recomendedPer = ((recomended / state.reviews.length) * 100).toFixed(1);
+
+      state.AverageRating = Number(AverageRating).toFixed(1);
       state.totalReviews = Number(state.reviews.length);
       state.totalStarRating = Number(totalStarRating);
       state.recomended = {

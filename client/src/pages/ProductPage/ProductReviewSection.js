@@ -33,7 +33,7 @@ function ProductReviewSection(props) {
     });
     setRatingEach([...rating]);
   }, [ratingList]);
-  console.log(recom.percentage);
+  console.log(recomended.percentage);
   return (
     <div className=" w-full bg-slate-100 gap-5 flex flex-col justify-center items-center">
       <h2 className=" font-bold text-2xl">Customer Rating & Reviews</h2>
@@ -91,13 +91,13 @@ function ProductReviewSection(props) {
             >
               <span className=" justify-center flex items-center bg-white rounded-full w-[4rem] h-[4rem]">
                 <span className="font-bold text-lg">
-                  {recomended.percentage ? +recomended.percentage : 0}%
+                  {!isNaN(recomended.percentage) ? +recomended.percentage : 0}%
                 </span>
               </span>
             </div>
             <h2 className="font-bold text-lg">
-              {recomended.percentage ? +recomended.percentage : 0}% would
-              recommend
+              {!isNaN(recomended.percentage) ? +recomended.percentage : 0}%
+              would recommend
             </h2>
             <p>
               {recomended.totalRecomend ? recomended.totalRecomend : 0}{" "}

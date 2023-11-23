@@ -137,7 +137,7 @@ export default function Register() {
 
   return (
     <Layout className="w-full">
-      <section className="w-[100%]   register-block gap-4 flex justify-center items-center mx-auto">
+      <section className="w-[100%] register-block gap-4 flex justify-center items-center mx-auto">
         <h2 className="mb-2 text-[1.5rem] text-orange-500 font-bold">
           Register to Dive in Books Library to Buy
         </h2>

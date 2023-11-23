@@ -95,9 +95,13 @@ function ProductReviewSection(props) {
               </span>
             </div>
             <h2 className="font-bold text-lg">
-              {recomended.percentage ?? 0}% would recommend
+              {recomended.percentage ? recomended.percentage : 0}% would
+              recommend
             </h2>
-            <p>{recomended.totalRecomend} Recommendations</p>
+            <p>
+              {recomended.totalRecomend ? recomended.totalRecomend : 0}{" "}
+              Recommendations
+            </p>
           </div>
         </div>
       </div>

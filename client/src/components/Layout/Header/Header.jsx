@@ -71,7 +71,7 @@ function Header() {
       }  ${classes.header}  relative overflow-visible `}
     >
       <label className={`${classes.logo}  shadow-orange-400`}>
-        <img src={logo} width={30} height={30} /> Books
+        <img src={logo} width={30} height={30} /> LibroVerse
       </label>
       <nav
         className={` ${

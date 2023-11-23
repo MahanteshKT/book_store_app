@@ -6,8 +6,8 @@ const initialState = {
   AverageRating: null,
   totalStarRating: null,
   recomended: {
-    totalRecomend: null,
-    percentage: null,
+    totalRecomend: 0,
+    percentage: 0,
   },
   ratingList: [
     {

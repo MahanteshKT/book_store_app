@@ -49,7 +49,7 @@ const reviewSlice = createSlice({
       let recomendedPer = 0;
       let rateArray = [0, 0, 0, 0, 0, 0];
       state.reviews.forEach((each) => {
-        let singleAverage = +each.Rating / (state.reviews.length * 5);
+        let singleAverage = +each.Rating / state.reviews.length;
         AverageRating = AverageRating + singleAverage;
         totalStarRating = totalStarRating + Number(each.Rating);
         if (each.recommend) {

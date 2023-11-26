@@ -38,7 +38,7 @@ function ProductReviewSection(props) {
     <div className=" w-full bg-slate-100 gap-5 flex flex-col justify-center items-center">
       <h2 className=" font-bold text-2xl">Customer Rating & Reviews</h2>
       <div className=" flex flex-col w-full">
-        <div className=" mx-6 flex md:flex-row flex-col gap-5 justify-center items-center">
+        <div className=" mx-6 flex md:flex-row flex-col gap-10 justify-center items-center">
           <div className="  w-[90%] md:w-[50%] lg:w-[25%] flex flex-col justify-center items-center">
             {ratingeach &&
               ratingeach.map((each) => (
@@ -47,7 +47,10 @@ function ProductReviewSection(props) {
                     ""
                   ) : (
                     <div className=" w-full flex flex-row justify-between items-center gap-3">
-                      <p>{each.rating} stars</p>
+                      <p>
+                        <span className=" font-medium">{each.rating}</span>{" "}
+                        stars
+                      </p>
                       <div className=" relative items-center justify-center w-[100%] overflow-hidden flex-1 h-[0.7rem]  rounded-lg bg-slate-200">
                         <div
                           className={` absolute transition ease-in-out delay-700  duration-300  w-[${
@@ -58,7 +61,9 @@ function ProductReviewSection(props) {
                           {"  "}
                         </div>
                       </div>
-                      <p>{each.percentage ? each.percentage : 0}%</p>
+                      <p className=" font-medium">
+                        {each.percentage ? each.percentage : 0}%
+                      </p>
                     </div>
                   )}
                 </React.Fragment>

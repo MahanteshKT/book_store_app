@@ -9,6 +9,8 @@ import {
   addtolocalStorage,
   deletLocalStorage,
 } from "../../services/localStorage";
+import { transactions } from "../../services/fetch-apis";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   TotalAmount: 0,
@@ -18,7 +20,14 @@ const initialState = {
   action: "",
 };
 
+// user_id
+//   booksId
+//   transactionAmount
+
 const Cart = (props) => {
+  const navigate = useNavigate();
+  const diaptach = useDispatch();
+  const { user, token } = useSelector((state) => state.user);
   const { items, totalQuantity, TotalAmount, ...other } = useSelector(
     (state) => state.cart
   );
@@ -68,6 +77,45 @@ const Cart = (props) => {
 
   const OrderItemsHandler = () => {
     console.log("Ordering......");
+    dispatch(uiAction.loadingHandler(false));
+    const books = items.map((item) => {
+      return { _id: item._id, quantity: item.quantity };
+    });
+    const data = {
+      user_id: user._id,
+      booksId: [...books],
+      transactionAmount: TotalAmount,
+    };
+    console.log(data);
+    transactions(token, data)
+      .then(() => {
+        // console.log(data);
+
+        dispatch(
+          uiAction.addMessage({
+            status: 200,
+            title: "success",
+            message: "Ordered Successfully",
+          })
+        );
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+
+        dispatch(
+          uiAction.addMessage({
+            status: err.status || 400,
+            title: "error",
+            message: err?.response?.data
+              ? err.response.data.error
+              : err.message,
+          })
+        );
+      })
+      .finally(() => {
+        dispatch(uiAction.loadingHandler(false));
+      });
     deletLocalStorage("cart-slice");
     dispatch(cartAction.EmptyCart());
     dispatch(uiAction.showCartHandler());

@@ -7,11 +7,10 @@ import AwardSection from "./AwardSection/AwardSection";
 import OtherBookSection from "./OtherBooksSection/OtherBookSection";
 import CustomerReviewSection from "./CusromerReviewSection/CustomerReviewSection";
 import { bannerBooks, reviews } from "../../constants";
-import { GetAllBooks } from "../../services/fetch-apis";
+import { GetAllBooks, topTenBooks } from "../../services/fetch-apis";
 import { useDispatch, useSelector } from "react-redux";
 import { booksAction } from "../../store/books-slice/book-slice";
 import { uiAction } from "../../store/ui-slice/ui-slice";
-
 function Home() {
   const { user, token } = useSelector((state) => state.user);
   // const [state, setState] = useState();
@@ -21,6 +20,11 @@ function Home() {
     GetAllBooks(token)
       .then((data) => {
         dispatch(booksAction.setbooks({ books: [...data.books] }));
+        return topTenBooks(token);
+      })
+      .then((topBooks) => {
+        console.log(topBooks);
+        dispatch(booksAction.AddTopBooks({ books: [...topBooks.books] }));
       })
       .catch((err) => {
         booksAction.addMessage({
@@ -33,6 +37,8 @@ function Home() {
         dispatch(uiAction.loadingHandler(false));
       });
   }, []);
+
+  useEffect(() => {}, []);
   return (
     <Layout>
       <div className={classes.Banner}>

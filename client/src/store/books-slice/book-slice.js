@@ -4,6 +4,7 @@ const initialState = {
   books: null,
   bestSellerBooks: null,
   userBooks: null,
+  topBooks: null,
 };
 
 const booksSlice = createSlice({
@@ -28,6 +29,9 @@ const booksSlice = createSlice({
         return each;
       });
       state.userBooks = updatedUserBooks;
+    },
+    AddTopBooks: (state, action) => {
+      state.topBooks = action.payload.books;
     },
   },
 });

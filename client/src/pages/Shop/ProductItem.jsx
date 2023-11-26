@@ -29,11 +29,11 @@ function ProductItem(props) {
   };
 
   return (
-    <div className="flex gap-3 flex-col p-4  shadow-md w-[80%] lg:h-[40rem] sm:w-[40%] md:w-[20rem] lg:w-[20rem]  bg-white-400 rounded-md">
-      <div className="cursor-pointer w-[100%] h-[50%] lg:h-[50rem]  rounded-md overflow-hidden shadow-sm  border-2 border-solid">
+    <div className="flex gap-3 flex-col  p-4  shadow-md w-[80%] lg:h-[40rem] sm:w-[40%] md:w-[20rem] lg:w-[20rem]  bg-white-400 rounded-md">
+      <div className="cursor-pointer mx-auto flex flex-col items-center justify-center w-[13rem] h-[17rem]  rounded-md overflow-hidden shadow-sm  border-2 border-solid">
         <img
           onClick={(e) => onClickHandler(e, book._id)}
-          className="hover:scale-[1.5] hover:transition duration-500 ease-out w-full h-full object-cover"
+          className="hover:scale-[1.5] hover:transition duration-500 ease-out  object-contain"
           src={`${book?.imageUrl}`}
           alt={book?.bookTitle}
         />
@@ -48,7 +48,7 @@ function ProductItem(props) {
         by <span className=" font-medium text-gray-500">{book.authorName}</span>
       </p>
       <p className=" text-gray-600 font-small text-sm">
-        {String(book.bookDescription).split(".").slice(0, 1).join()}
+        {String(book.bookDescription).slice(0, 120)}
       </p>
       <h3 className=" font-bold text-xl">
         &#8377;{Number(book.price).toFixed(2) || 0}

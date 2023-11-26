@@ -12,6 +12,7 @@
 // bookPdfURL
 
 import Books from "../models/BooksModel.js";
+import Transactions from "../models/TransactionModel.js";
 
 export const AddBooks = async function (req, res) {
   const { bookTitle, authorName, ...others } = req.body;
@@ -29,7 +30,7 @@ export const AddBooks = async function (req, res) {
 
 export const getBooks = async function (req, res) {
   try {
-    const books = await Books.find({});
+    const books = await Books.find({}).sort({ createdAt: -1 });
     if (!books) {
       throw new Error("Error to get Books");
     }
@@ -104,6 +105,37 @@ export const getBooksByCategory = async function (req, res) {
       throw new Error("failed to get boooks.this error from server side");
     }
     res.status(200).json({ books });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const getTopBooks = async function (req, res) {
+  try {
+    const eachNoOfBooks = {};
+    const allTransactions = await Transactions.find({});
+
+    const booksId = [...allTransactions.flatMap((each) => each.booksId)];
+
+    [...booksId].forEach((each) => {
+      if (each.quantity > 0) {
+        eachNoOfBooks[each._id] = +each.quantity || 0;
+        each.quantity = 0;
+      }
+      eachNoOfBooks[each._id] = +eachNoOfBooks[each._id] + 1;
+    });
+
+    console.log(eachNoOfBooks);
+    const topBooksId = Object.entries(eachNoOfBooks).sort(
+      (a, b) => b[1] - a[1]
+    );
+    const allTopBooks = await Promise.all(
+      topBooksId.map((each) => Books.findById({ _id: each[0] }))
+    );
+
+    res.status(200).json({
+      books: allTopBooks.slice(0, 10),
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

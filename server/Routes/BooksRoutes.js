@@ -8,6 +8,7 @@ import {
   DeleteBookByBookId,
   getBooksByCategory,
   getBookByBookId,
+  getTopBooks,
 } from "../controllers/BooksControllers.js";
 
 const router = express.Router();
@@ -20,5 +21,7 @@ router.patch("/update-book/:userId/:bookId", VerifyToken, updateBookByUserId);
 router.get("/get-books/:id", VerifyToken, getBooksByUserId);
 
 router.delete("/delete-book/:id", VerifyToken, DeleteBookByBookId);
+
+router.get("/get-top-books", VerifyToken, getTopBooks);
 
 export default router;

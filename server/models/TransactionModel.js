@@ -2,7 +2,6 @@ import mongoose, { Schema } from "mongoose";
 
 const TransactionSchema = new mongoose.Schema(
   {
-    TransactionId: {},
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -12,7 +11,7 @@ const TransactionSchema = new mongoose.Schema(
       default: [],
     },
     transactionAmount: {
-      type: Decimal,
+      type: mongoose.Types.Decimal128,
       default: 0.0,
       required: true,
     },

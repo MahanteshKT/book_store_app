@@ -9,7 +9,10 @@ import "./Banner.css";
 // import required modules
 import { EffectCards } from "swiper/modules";
 import { slideBooks } from "../../../constants";
+import { useSelector } from "react-redux";
 function BannerSection() {
+  const { topBooks } = useSelector((state) => state.books);
+
   return (
     <>
       <div className="flex  flex-col gap-6  ">
@@ -38,11 +41,12 @@ function BannerSection() {
           className="mySwiper"
         >
           {/* <SwiperSlide>Slide 1</SwiperSlide> */}
-          {slideBooks.map((each) => (
-            <SwiperSlide key={each._id}>
-              <img src={each.ImgSrc} alt="3dnjfnj" />
-            </SwiperSlide>
-          ))}
+          {topBooks &&
+            topBooks?.map((each) => (
+              <SwiperSlide key={each._id}>
+                <img src={each.imageUrl} alt="3dnjfnj" />
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
     </>

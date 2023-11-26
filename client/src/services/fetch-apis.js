@@ -1,7 +1,7 @@
 import axios from "axios";
 // import { getUserData } from "./Storage";
 // http://127.0.0.1:3001
-export const baseURL = "https://book-store-app-2e1z.onrender.com";
+export const baseURL = "http://127.0.0.1:3001";
 // https://book-store-app-2e1z.onrender.com
 axios.defaults.baseURL = "mongodb://localhost:27017";
 const API_KEY = "mongodb://localhost:27017";
@@ -165,6 +165,37 @@ export const getReviewsById = async (token, id) => {
   });
   const data = await res.json();
   console.log(data);
+  if (!res.ok) {
+    throw new Error(data.error);
+  }
+  return data;
+};
+
+export const transactions = async (token, transactionData) => {
+  const res = await fetch(`${baseURL}/transactions/add-transactions`, {
+    method: "POST",
+    body: JSON.stringify(transactionData),
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+  console.log(data);
+  if (!res.ok) {
+    throw new Error(data.error);
+  }
+  return data;
+};
+
+export const topTenBooks = async (token) => {
+  const res = await fetch(`${baseURL}/books/get-top-books`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
   if (!res.ok) {
     throw new Error(data.error);
   }

@@ -12,6 +12,7 @@ import AuthRoutes from "./Routes/AuthRoutes.js";
 import { Register } from "./controllers/AuthControllers.js";
 import BooksRoutes from "./Routes/BooksRoutes.js";
 import ReviewsRoutes from "./Routes/ReviewsRoutes.js";
+import TransactionsRoutes from "./Routes/TransactionsRoutes.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -69,3 +70,4 @@ app.post("/auth/register", upload.single("picturePath"), Register);
 app.use("/auth", AuthRoutes);
 app.use("/books", BooksRoutes);
 app.use("/reviews", ReviewsRoutes);
+app.use("/transactions", TransactionsRoutes);

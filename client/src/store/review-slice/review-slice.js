@@ -81,7 +81,7 @@ const reviewSlice = createSlice({
       state.AverageRating = null;
       state.totalStarRating = null;
       state.recomended = initialState.recomended;
-      ratingList = initialState.ratingList;
+      state.ratingList = initialState.ratingList;
     },
     AddRecentReview: (state, action) => {
       console.log(action.payload.review);

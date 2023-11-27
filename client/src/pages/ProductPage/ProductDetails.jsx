@@ -60,7 +60,7 @@ function ProductDetails() {
   return (
     <Layout>
       <div className="w-[90%] mx-auto flex flex-col justify-center items-center">
-        <div className="mx-auto my-[3rem]  items-center justify-center flex flex-col md:flex-row gap-5 ">
+        <div className="mx-auto my-[3rem]  items-center justify-center text-start flex flex-col md:flex-row gap-5 ">
           <ProductImageSection image={book.imageUrl} />
           <ProductDetailsSection number={4} book={{ ...book }} />
         </div>

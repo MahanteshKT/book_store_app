@@ -30,7 +30,7 @@ function ProductDetailsSection(props) {
 
   return (
     <div className="flex flex-1 flex-col gap-2">
-      <h2 className=" cursor-pointer font-[800] text-2xl leading-8 text-black hover:text-orange-500 break-words">
+      <h2 className=" cursor-pointer font-[800] text-start text-2xl leading-8 text-black hover:text-orange-500 break-words">
         {book.bookTitle}
       </h2>
       <h2 className="font-medium text-start text-[1.1rem]">

@@ -63,6 +63,7 @@ function OtherBookSection(props) {
                   <img
                     onClick={(e) => onClickHandler(e, book._id)}
                     src={book.imageUrl}
+                    loading="lazy"
                     className=" object-cover relative hover:scale-[1.5] hover:transition duration-500 ease-out"
                   />
                   <div className="absolute z-2 text-white top-0 right-2 p-2 shadow-sm py-3 bg-blue-600 backdrop:blur-10 rounded-sm hover:bg-orange-400 hover:text-black hover:transition eas-in-out duration-500">

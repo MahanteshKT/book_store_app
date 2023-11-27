@@ -76,7 +76,12 @@ const reviewSlice = createSlice({
       };
     },
     removeAllReviews: (state) => {
-      state = { ...initialState };
+      state.reviews = null;
+      state.totalReviews = null;
+      state.AverageRating = null;
+      state.totalStarRating = null;
+      state.recomended = initialState.recomended;
+      ratingList = initialState.ratingList;
     },
     AddRecentReview: (state, action) => {
       console.log(action.payload.review);

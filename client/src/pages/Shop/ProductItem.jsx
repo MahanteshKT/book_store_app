@@ -36,6 +36,7 @@ function ProductItem(props) {
           className="hover:scale-[1.5] hover:transition duration-500 ease-out  object-contain"
           src={`${book?.imageUrl}`}
           alt={book?.bookTitle}
+          loading="lazy"
         />
       </div>
       <h2

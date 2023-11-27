@@ -44,7 +44,7 @@ function BannerSection() {
           {topBooks &&
             topBooks?.map((each) => (
               <SwiperSlide key={each._id}>
-                <img src={each.imageUrl} alt="3dnjfnj" />
+                <img src={each.imageUrl} alt="3dnjfnj" loading="lazy" />
               </SwiperSlide>
             ))}
         </Swiper>

@@ -30,10 +30,10 @@ function ProductItem(props) {
 
   return (
     <div className="flex gap-3 flex-col  p-4  shadow-md w-[80%] lg:h-[40rem] sm:w-[40%] md:w-[20rem] lg:w-[20rem]  bg-white-400 rounded-md">
-      <div className="cursor-pointer mx-auto flex flex-col items-center justify-center w-[13rem] h-[17rem]  rounded-md overflow-hidden shadow-sm  border-2 border-solid">
+      <div className="cursor-pointer mx-auto flex flex-col items-start justify-center w-[13rem] h-[17rem]  rounded-md overflow-hidden shadow-sm  border-2 border-solid">
         <img
           onClick={(e) => onClickHandler(e, book._id)}
-          className="hover:scale-[1.5] hover:transition duration-500 ease-out  object-contain"
+          className="hover:scale-[1.5] hover:transition duration-500 ease-out self-center object-contain"
           src={`${book?.imageUrl}`}
           alt={book?.bookTitle}
           loading="lazy"

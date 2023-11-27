@@ -41,7 +41,7 @@ function ProductItem(props) {
       </div>
       <h2
         onClick={(e) => onClickHandler(e, book._id)}
-        className=" capitalize cursor-pointer font-bold self-start text-xl hover:text-orange-500 "
+        className=" capitalize cursor-pointer font-bold text-start text-xl hover:text-orange-500 "
       >
         {book.bookTitle}
       </h2>

@@ -11,9 +11,11 @@ import { Pagination } from "swiper/modules";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaCartArrowDown } from "react-icons/fa";
 import Favroite from "./../../../assets/favoritebook.jpg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { cartAction } from "../../../store/cart-slice/cart-slice";
 function OtherBookSection(props) {
   const { topBooks } = useSelector((state) => state.books);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   console.log(topBooks);
   const onClickHandler = (e, id) => {
@@ -21,6 +23,17 @@ function OtherBookSection(props) {
     console.log(id);
     navigate(`/product/${id}`);
   };
+
+  const onAddCartHandler = (book) => {
+    dispatch(
+      cartAction.CartAddItemHandler({
+        _id: book._id,
+        bookTitle: book.bookTitle,
+        price: book.price,
+      })
+    );
+  };
+
   return (
     <>
       <h2 className=" text-black font-bold text-[1.5rem] md:text-[2rem] font-montserrat">
@@ -66,7 +79,13 @@ function OtherBookSection(props) {
                     loading="lazy"
                     className=" object-cover relative hover:scale-[1.5] hover:transition duration-500 ease-out"
                   />
-                  <div className="absolute z-2 text-white top-0 right-2 p-2 shadow-sm py-3 bg-blue-600 backdrop:blur-10 rounded-sm hover:bg-orange-400 hover:text-black hover:transition eas-in-out duration-500">
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onAddCartHandler(book);
+                    }}
+                    className="absolute z-2 text-white top-0 right-2 p-2 shadow-sm py-3 bg-blue-600 backdrop:blur-10 rounded-sm hover:bg-orange-400 hover:text-black hover:transition eas-in-out duration-500"
+                  >
                     <FaCartArrowDown />
                   </div>
                 </div>
@@ -92,47 +111,6 @@ function OtherBookSection(props) {
             </SwiperSlide>
           ))}
       </Swiper>
-      <div className="flex-col w-[100%]  md:flex md:items-center md:flex-row  gap-2 items-center ">
-        <div className="overflow-hidden w-full h-full md:h-full md:max-w-[70%]  flex justify-center items-center ">
-          <img
-            src={Favroite}
-            className=" object-cover w-[80%] h-[50%]  md:w-[60%]"
-            alt="favorite"
-          />
-        </div>
-        <div className="px-[0rem] py-[2rem] flex flex-col gap-3 md:px-[2rem] lg:p-[4rem] w-full">
-          <h2 className="flex flex-col text-left leading-none gap-1 font-bold text-[2rem]">
-            Find Your Favorite
-            <span className=" text-orange-400 ">Book Here!</span>
-          </h2>
-          <p className=" text-gray-600 font-montserrat break-words text-[0.7rem]">
-            find and read more books you'll love, and keep track of the books
-            you want to read. Be part of the world's largest community of the
-            book lovers on Goodreads.
-          </p>
-
-          <div className="flex justify-evenly w-full  gap-1">
-            <div>
-              <h2 className="font-bold text-2xl ">800+</h2>
-              <p className="text-[0.8rem] md:text-[1rem] text-gray-600  sd:text-[0.8rem]">
-                Book Listing
-              </p>
-            </div>
-            <div>
-              <h2 className="font-bold text-2xl">550+</h2>
-              <p className="text-[0.8rem] md:text-[1rem]  text-gray-600 sd:text-[0.8rem]">
-                Register User
-              </p>
-            </div>
-            <div>
-              <h2 className="font-bold text-2xl">1200+</h2>
-              <p className="text-[0.8rem] md:text-[1rem]  text-gray-600 sd:text-[0.8rem]">
-                Pdf Downloaded
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   );
 }

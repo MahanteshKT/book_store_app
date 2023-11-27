@@ -7,10 +7,15 @@ import AwardSection from "./AwardSection/AwardSection";
 import OtherBookSection from "./OtherBooksSection/OtherBookSection";
 import CustomerReviewSection from "./CusromerReviewSection/CustomerReviewSection";
 import { bannerBooks, reviews } from "../../constants";
-import { GetAllBooks, topTenBooks } from "../../services/fetch-apis";
+import {
+  GetAllBooks,
+  topTenBooks,
+  topTenComment,
+} from "../../services/fetch-apis";
 import { useDispatch, useSelector } from "react-redux";
 import { booksAction } from "../../store/books-slice/book-slice";
 import { uiAction } from "../../store/ui-slice/ui-slice";
+import { reviewAction } from "../../store/review-slice/review-slice";
 function Home() {
   const { user, token } = useSelector((state) => state.user);
   // const [state, setState] = useState();
@@ -25,6 +30,13 @@ function Home() {
       .then((topBooks) => {
         console.log(topBooks);
         dispatch(booksAction.AddTopBooks({ books: [...topBooks.books] }));
+        return topTenComment(token);
+      })
+      .then((reviews) => {
+        console.log(reviews);
+        dispatch(
+          reviewAction.setTopReviews({ topReviews: [...reviews.topReviews] })
+        );
       })
       .catch((err) => {
         booksAction.addMessage({

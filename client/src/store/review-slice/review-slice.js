@@ -35,12 +35,16 @@ const initialState = {
       percentage: 0,
     },
   ],
+  topReviews: null,
 };
 
 const reviewSlice = createSlice({
   name: "reviewSlice",
   initialState,
   reducers: {
+    setTopReviews: (state, action) => {
+      state.topReviews = action.payload.topReviews;
+    },
     setReviews: (state, action) => {
       state.reviews = action.payload;
       let AverageRating = 0;

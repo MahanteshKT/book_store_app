@@ -21,7 +21,8 @@ import Message from "./components/UI/Messages/Message.jsx";
 import Shop from "./pages/Shop/Shop.jsx";
 import { cartAction } from "./store/cart-slice/cart-slice.js";
 import ProductDetails from "./pages/ProductPage/ProductDetails.jsx";
-
+import AboutUs from "./pages/About";
+import SearchResult from "./pages/Shop/SearchResult.js";
 function App() {
   const { user, token } = useSelector((state) => state.user);
   const { loading, message } = useSelector((state) => state.ui);
@@ -44,8 +45,12 @@ function App() {
           <Route path="/" element={token ? <Home /> : <Login />} />
           <Route path="/login" element={token ? <Home /> : <Login />} />
           <Route path="/register" element={!token ? <Register /> : <Home />} />
-          <Route path="/about" element={token ? <Home /> : <Login />} />
+          <Route path="/about" element={token ? <AboutUs /> : <Login />} />
           <Route path="/shop" element={token ? <Shop /> : <Login />} />
+          <Route
+            path="/search-books/:input"
+            element={token ? <SearchResult /> : <Login />}
+          />
           <Route
             path="/product/:id"
             element={token ? <ProductDetails /> : <Login />}

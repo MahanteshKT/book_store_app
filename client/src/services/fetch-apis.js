@@ -201,3 +201,17 @@ export const topTenBooks = async (token) => {
   }
   return data;
 };
+
+export const topTenComment = async (token) => {
+  const res = await fetch(`${baseURL}/reviews/top-reviews`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error);
+  }
+  return data;
+};

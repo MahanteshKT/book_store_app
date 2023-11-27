@@ -9,7 +9,10 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 // import { reviews } from "../../../constants";
 import { FaStar } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { baseURL } from "../../../services/fetch-apis";
 function CustomerReviewSection(props) {
+  const { topReviews } = useSelector((state) => state.review);
   return (
     <>
       <h2 className="font-bold text-[1.5rem] md:text-[2rem] text-center">
@@ -39,10 +42,10 @@ function CustomerReviewSection(props) {
         className="mySwiper w-full h-full  my-[2rem]"
       >
         {/* <SwiperSlide>Slide 1</SwiperSlide> */}
-        {props.reviews &&
-          props.reviews.map((customer) => (
+        {topReviews &&
+          topReviews.map((each) => (
             <SwiperSlide
-              key={customer._id}
+              key={each._id}
               className="shadow-xl  p-3  w-full my-[2rem] md:my-10 h-full rounded-md "
             >
               <div className=" flex flex-col items-start justify-center  break-words gap-2">
@@ -55,7 +58,7 @@ function CustomerReviewSection(props) {
                         size={15}
                         className={`
                         ${
-                          customer.rating > index
+                          each.Rating > index
                             ? " text-orange-500"
                             : " text-gray-600"
                         }`}
@@ -63,21 +66,21 @@ function CustomerReviewSection(props) {
                     ))}
                 </div>
                 <p className="text-[0.9rem] text-gray-600 break-words">
-                  {customer.comment}
+                  {each.commentDescription}
                 </p>
               </div>
               <div className="flex  flex-col items-start py-2 gap-2">
                 <img
                   className="w-10 h-10 object-contain bg-slate-500 rounded-full"
-                  src={customer.userImg}
+                  src={`${baseURL}/assets/${each.userDetails.picturePath}`}
                   alt="userImg"
                 />
                 <div>
                   <h2 className="font-bold text-[0.9rem] text-black">
-                    {customer.username}
+                    {each.userName}
                   </h2>
                   <h3 className="text-gray-400 text-[0.8rem] font-medium">
-                    {customer.role}, {customer.company}
+                    {each.userDetails.occupation},
                   </h3>
                 </div>
               </div>

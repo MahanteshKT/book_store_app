@@ -18,6 +18,7 @@ function Header() {
   const user = useSelector((state) => state.user);
   const [isMenuActive, setIsMenuActive] = useState(true);
   const [isSticky, setIsSticky] = useState(false);
+  const [buttonAnimate, setButtonAnimate] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 100) {
@@ -26,13 +27,6 @@ function Header() {
         setIsSticky(false);
       }
     };
-    // const clickHandler = () => {
-    //   console.log(isMenuActive);
-    //   if (isMenuActive) {
-    //     setIsMenuActive(true);
-    //   }
-    // };
-    // window.addEventListener("click", clickHandler);
 
     window.addEventListener("scroll", handleScroll);
 
@@ -43,9 +37,9 @@ function Header() {
   }, []);
   const navItems = [
     { to: "/", name: "HOME" },
-    { to: "/about", name: "About" },
     { to: "/shop", name: "shop" },
     { to: "/admin", name: "sell your book" },
+    { to: "/about", name: "About" },
     { to: "/blog", name: "Blog" },
   ];
 
@@ -53,7 +47,7 @@ function Header() {
     e.preventDefault();
     console.log("logout");
     dispatch(userAction.setLogout());
-    deletLocalStorage();
+    deletLocalStorage("user-slice");
     navigate("/login");
   };
 
@@ -61,6 +55,17 @@ function Header() {
     e.preventDefault();
     dispatch(uiAction.showCartHandler());
   };
+
+  useEffect(() => {
+    if (totalQuantity === 0) {
+      return;
+    }
+
+    setButtonAnimate(true);
+    const time = setTimeout(() => {
+      setButtonAnimate(false);
+    }, 300);
+  }, [totalQuantity]);
 
   return (
     <div
@@ -70,9 +75,12 @@ function Header() {
           : " bg-orange-100"
       }  ${classes.header}  relative overflow-visible `}
     >
-      <label className={`${classes.logo}  shadow-orange-400`}>
-        <img src={logo} width={30} height={30} /> LibroVerse
-      </label>
+      <NavLink to="/">
+        <label className={`${classes.logo} cursor-pointer shadow-orange-400`}>
+          <img src={logo} width={30} height={30} /> LibroVerse
+        </label>
+      </NavLink>
+
       <nav
         className={` ${
           !isMenuActive
@@ -126,7 +134,9 @@ function Header() {
       <div className="flex flex-row justify-center items-end md:items-center gap-5 w-[30%] ">
         <Button
           onClick={cartHandler}
-          className="hidden md:flex justify-center items-center gap-2 shadow-md shadow-orange-300 my-2"
+          className={`hidden md:flex ${
+            buttonAnimate && classes.bump
+          } justify-center items-center gap-2 shadow-md shadow-orange-300 my-2`}
         >
           Your Cart <FaShoppingCart />{" "}
           <span className="px-[11px] py-[0px] bg-orange-200 shadow-sm text-[0.8rem] rounded-xl">
@@ -160,9 +170,12 @@ function Header() {
       <div className="flex gap-5 justify-center items-center font-bold text-[25px]">
         <div
           onClick={cartHandler}
-          className="flex font-bold items-center md:hidden w-[2rem] mr-[1rem]  text-orange-500 hover:text-black"
+          className={`${
+            buttonAnimate && classes.bump
+          } flex gap-1 font-bold items-center md:hidden w-min-[3rem] mr-[1rem]  text-orange-500 hover:text-black`}
         >
           <FaShoppingCart />
+          <span className=" text-[1rem]">({totalQuantity})</span>
         </div>
         <div
           onClick={(e) => {

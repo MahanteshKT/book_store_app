@@ -12,10 +12,12 @@ import { Pagination } from "swiper/modules";
 import { Link, useNavigate } from "react-router-dom";
 import { FaCartArrowDown } from "react-icons/fa";
 import Favroite from "./../../../assets/favoritebook.jpg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { cartAction } from "../../../store/cart-slice/cart-slice";
 function BooksListSection(props) {
   const { topBooks } = useSelector((state) => state.books);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   console.log(topBooks);
   const onClickHandler = (e, id) => {
     e.preventDefault();
@@ -23,6 +25,15 @@ function BooksListSection(props) {
     navigate(`/product/${id}`);
   };
 
+  const onAddCartHandler = (book) => {
+    dispatch(
+      cartAction.CartAddItemHandler({
+        _id: book._id,
+        bookTitle: book.bookTitle,
+        price: book.price,
+      })
+    );
+  };
   return (
     <>
       <h2 className=" text-black font-bold text-[1.5rem] md:text-[2rem] font-montserrat">
@@ -64,10 +75,17 @@ function BooksListSection(props) {
                 <div className="  shadow-xl rounded-md overflow-hidden ">
                   <img
                     onClick={(e) => onClickHandler(e, book._id)}
+                    loading="lazy"
                     src={book.imageUrl}
                     className=" object-cover relative hover:scale-[1.5] hover:transition duration-500 ease-out"
                   />
-                  <div className="absolute z-2 text-white top-0 right-2 p-2 shadow-sm py-3 bg-blue-600 backdrop:blur-10 rounded-sm hover:bg-orange-400 hover:text-black hover:transition eas-in-out duration-500">
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onAddCartHandler(book);
+                    }}
+                    className="absolute z-2 text-white top-0 right-2 p-2 shadow-sm py-3 bg-blue-600 backdrop:blur-10 rounded-sm hover:bg-orange-400 hover:text-black hover:transition eas-in-out duration-500"
+                  >
                     <FaCartArrowDown />
                   </div>
                 </div>

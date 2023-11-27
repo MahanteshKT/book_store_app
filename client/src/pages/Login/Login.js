@@ -156,7 +156,7 @@ export default function Login() {
                     errors={errors.password}
                     className="w-full"
                     attributes={{
-                      type: "text",
+                      type: "password",
                       onChange: handleInput,
                       name: "password",
                       id: "password",

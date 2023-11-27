@@ -76,8 +76,8 @@ function ProductDetailsSection(props) {
           <FaShoppingBag /> Add To Cart
         </Button>
       </div>
-      <div className="my-3 mt-3 gap-2 flex flex-col">
-        <h1 className="font-bold text-2xl">Product Description</h1>
+      <div className="my-3 mt-3 gap-2 flex flex-col items-start">
+        <h1 className="font-bold text-2xl text-start">Product Description</h1>
         <p className=" break-words leading-normal text-sm font-medium text-gray-500">
           {book.bookDescription}
         </p>
